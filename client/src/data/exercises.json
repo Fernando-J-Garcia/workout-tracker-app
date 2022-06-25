@@ -1,0 +1,30 @@
+[
+  {
+    "name": "high knees",
+    "descrition": "High Knees are a cardio-intensive exercise performed at a fast pace. It engages your core, strengthens all the muscles in your legs, gets your heart rate up and improves momentum, coordination and flexibility. Because of the many physical benefits, high-knees are incorporated into a wide variety of workouts.",
+    "image": "",
+    "category": "cardio",
+    "id": 1
+  },
+  {
+    "name": "march steps",
+    "descrition": "",
+    "image": "",
+    "category": "cardio",
+    "id": 1
+  },
+  {
+    "name": "hops",
+    "descrition": "",
+    "image": "",
+    "category": "cardio",
+    "id": 1
+  },
+  {
+    "name": "side jacks",
+    "descrition": "",
+    "image": "",
+    "category": "cardio",
+    "id": 1
+  }
+]
