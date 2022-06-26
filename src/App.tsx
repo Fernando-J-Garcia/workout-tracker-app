@@ -9,48 +9,51 @@ import Navbar from "./components/Navbar";
 import Login from "./components/Auth/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import Signup from "./components/Auth/Signup";
+import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
   return (
-    <Container>
-      <Navbar />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route
-          path="/"
-          element={
-            <PrivateRoute>
-              <Home />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/browse"
-          element={
-            <PrivateRoute>
-              <Browse />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/progress"
-          element={
-            <PrivateRoute>
-              <Browse />
-            </PrivateRoute>
-          }
-        />
-      </Routes>
-    </Container>
+    <AuthProvider>
+      <Container>
+        <Navbar />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/browse"
+            element={
+              <PrivateRoute>
+                <Browse />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/progress"
+            element={
+              <PrivateRoute>
+                <Progress />
+              </PrivateRoute>
+            }
+          />
+        </Routes>
+      </Container>
+    </AuthProvider>
   );
 }
 
