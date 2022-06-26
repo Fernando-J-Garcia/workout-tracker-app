@@ -8,6 +8,7 @@ import { addDoc, collection, getDocs } from "firebase/firestore";
 import { database } from "../firebase";
 import { Timestamp } from "firebase/firestore";
 import { useAuth } from "../contexts/AuthContext";
+import { useUser } from "../contexts/UserContext";
 
 export default function Dashboard() {
   const [showModal, setShowModal] = useState(false);
@@ -18,6 +19,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(false);
 
   const { currentUser } = useAuth();
+  const { userWorkouts } = useUser();
 
   function handleClose() {
     setShowModal(false);
@@ -48,8 +50,8 @@ export default function Dashboard() {
       <div>
         <h1>Dashboard</h1>
         <Row md={3} xs={2} lg={4} className="g-3">
-          {workouts.map((workout, index) => (
-            <Col key={workout.uuid}>
+          {userWorkouts?.map((workout, index) => (
+            <Col key={workout.id}>
               <WorkoutCard
                 name={workout.name}
                 Svg={getSvgFromCategory(workout.category)}
