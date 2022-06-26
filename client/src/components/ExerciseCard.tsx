@@ -22,9 +22,12 @@ export default function ExerciseCard({ name, Svg, imageUrl }) {
       </Card>
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Workout</Modal.Title>
+          <Modal.Title>Select Where To Add Workout</Modal.Title>
         </Modal.Header>
-        <Modal.Body></Modal.Body>
+        <Modal.Body>
+          <span className="me-2">Dummy Workout List</span>
+          <Button>Add</Button>
+        </Modal.Body>
       </Modal>
     </>
   );
