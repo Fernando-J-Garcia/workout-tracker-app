@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
 import ExerciseCard from "../components/ExerciseCard";
 import { getSvgFromCategory } from "../utilities/utilities";
 
@@ -18,7 +18,16 @@ export default function Browse() {
     <div>
       <h1>Browse</h1>
       {exercises === null ? (
-        <h4>Loading...</h4>
+        <>
+          <Spinner
+            as="span"
+            animation="border"
+            size="sm"
+            role="status"
+            aria-hidden="true"
+          />
+          <span className="ms-2">Loading...</span>
+        </>
       ) : (
         <Row md={3} xs={2} lg={4} className="g-3">
           {exercises?.results?.map((exercise, index) => (

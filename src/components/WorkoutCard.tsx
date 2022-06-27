@@ -1,11 +1,30 @@
 import React, { useState } from "react";
 import { Button, Card, Modal } from "react-bootstrap";
+import { ThreeDots } from "react-bootstrap-icons";
+import EditWorkoutModal from "./EditWorkoutModal";
 
-export default function WorkoutCard({ name, Svg }) {
-  const [showModal, setShowModal] = useState(false);
+interface WorkoutCardInterface {
+  Svg: ({ width, height }: { width?: any; height?: any }) => JSX.Element;
+  name: string;
+  id: string;
+  description: string;
+  category: string;
+}
+export default function WorkoutCard({
+  Svg,
+  name,
+  id,
+  description,
+  category,
+}: WorkoutCardInterface) {
+  const [showStartWorkoutModal, setShowStartWorkoutModal] = useState(false);
+  const [showEditWorkoutModal, setShowEditWorkoutModal] = useState(false);
 
   function handleClose() {
-    setShowModal(false);
+    setShowStartWorkoutModal(false);
+  }
+  function handleEditWorkoutModalClose() {
+    setShowEditWorkoutModal(false);
   }
   return (
     <>
@@ -13,10 +32,28 @@ export default function WorkoutCard({ name, Svg }) {
         {<Svg />}
         <Card.Body>
           <Card.Title>{name}</Card.Title>
-          <Button onClick={() => setShowModal(true)}>Start Workout!</Button>
+          <Button onClick={() => setShowStartWorkoutModal(true)}>
+            Start Workout!
+          </Button>
+          <Button
+            variant="outline-primary"
+            className="ms-3"
+            onClick={() => setShowEditWorkoutModal(true)}
+          >
+            <ThreeDots />
+          </Button>
         </Card.Body>
       </Card>
-      <Modal show={showModal} onHide={handleClose}></Modal>
+      <Modal show={showStartWorkoutModal} onHide={handleClose}></Modal>
+      <EditWorkoutModal
+        isVisible={showEditWorkoutModal}
+        handleOpen={() => setShowEditWorkoutModal(true)}
+        handleClose={handleEditWorkoutModalClose}
+        workoutName={name}
+        workoutId={id}
+        workoutCategory={category}
+        workoutDescription={description}
+      />
     </>
   );
 }

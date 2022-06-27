@@ -36,7 +36,8 @@ export default function Dashboard() {
         description: description,
         category: category,
         userId: currentUser?.uid,
-        createAt: Timestamp.fromDate(new Date()),
+        createdAt: Timestamp.fromDate(new Date()),
+        updateAt: Timestamp.fromDate(new Date()),
       });
       setError("");
     } catch (error) {
@@ -55,6 +56,9 @@ export default function Dashboard() {
               <WorkoutCard
                 name={workout.name}
                 Svg={getSvgFromCategory(workout.category)}
+                id={workout.id}
+                description={workout.description}
+                category={workout.category}
               />
             </Col>
           ))}

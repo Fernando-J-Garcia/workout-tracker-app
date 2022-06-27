@@ -1,6 +1,12 @@
 import React from "react";
 
-export default function ContentManColor({ width, height }) {
+export default function ContentManColor({
+  width,
+  height,
+}: {
+  width?: string;
+  height?: string;
+}) {
   return (
     <svg
       version="1.1"
