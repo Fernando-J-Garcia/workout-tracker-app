@@ -13,14 +13,16 @@ import { database } from "../firebase";
 import { useAuth } from "./AuthContext";
 
 interface UserContextInterface {
-  userWorkouts: [];
+  userWorkouts: any[];
 }
 const UserContext = React.createContext<Partial<UserContextInterface>>({});
 
 export const useUser = () => useContext(UserContext);
+
 export function UserProvider({ children }: any) {
   const { currentUser } = useAuth();
-  const [userWorkouts, setUserWorkouts] = useState<any>([]);
+  const [userWorkouts, setUserWorkouts] = useState<Array<any>>([]);
+
   useEffect(() => {
     const workoutsRef = collection(database, "workouts");
     const q = query(workoutsRef, where("userId", "==", currentUser?.uid));
@@ -32,10 +34,19 @@ export function UserProvider({ children }: any) {
           ...change.data(),
         })
       );
+      console.log(result);
       setUserWorkouts(result);
     });
     return () => unsubscribe();
   }, []);
+  function editWorkout(
+    name: string,
+    description: string,
+    category: string,
+    id: string
+  ) {
+    //Not implemented
+  }
   const value: UserContextInterface = {
     userWorkouts: userWorkouts,
   };
