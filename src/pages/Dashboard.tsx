@@ -62,9 +62,15 @@ export default function Dashboard() {
               />
             </Col>
           ))}
-          <Button variant="outline-primary" onClick={() => setShowModal(true)}>
-            +Add Workout
-          </Button>
+          <Col>
+            <Button
+              variant="outline-primary"
+              onClick={() => setShowModal(true)}
+              className="w-100 h-100"
+            >
+              +Add Workout
+            </Button>
+          </Col>
         </Row>
       </div>
       <Modal show={showModal} onHide={handleClose}>
