@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import { Button, Card, Modal } from "react-bootstrap";
 
-export default function ExerciseCard({ name, Svg, imageUrl }) {
+interface ExerciseCardInterface {
+  name: string;
+  Svg: ({ width, height }: { width?: any; height?: any }) => JSX.Element;
+  imageUrl: string;
+}
+export default function ExerciseCard({
+  name,
+  Svg,
+  imageUrl,
+}: ExerciseCardInterface) {
   const [showModal, setShowModal] = useState(false);
 
   function handleClose() {
