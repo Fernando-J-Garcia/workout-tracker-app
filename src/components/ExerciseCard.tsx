@@ -32,6 +32,8 @@ export default function ExerciseCard({
       name: name,
       description: description,
       uuid: uuid,
+      repLengthInSeconds: 60,
+      repetitions: 3,
       imageUrl: imageUrl || null,
     };
 

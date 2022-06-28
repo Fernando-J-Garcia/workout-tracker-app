@@ -22,14 +22,25 @@ interface EditWorkoutModalInterface {
   workoutCategory: string;
   workoutExercises: any[];
 }
-function getWorkoutTimes(workoutExercises: any[]): any[] {
-  const result = [];
+function getRepLengths(workoutExercises: any[]): any[] {
+  const result: any = [];
   for (const exercise of workoutExercises) {
-    if (exercise.lengthInSeconds === undefined) {
+    if (exercise.repLengthInSeconds === undefined) {
       result.push("");
       continue;
     }
     result.push(exercise.lengthInSeconds);
+  }
+  return result;
+}
+function getRepitionsList(workoutExercises: any[]): any[] {
+  const result = [];
+  for (const exercise of workoutExercises) {
+    if (exercise.repetitions === undefined) {
+      result.push("0");
+      continue;
+    }
+    result.push(exercise.repetitions);
   }
   return result;
 }
@@ -47,8 +58,11 @@ export default function EditWorkoutModal({
   const [name, setName] = useState(workoutName);
   const [description, setDescription] = useState(workoutDescription);
   const [category, setCategory] = useState(workoutCategory);
-  const [exerciseTimes, setExerciseTimes] = useState<Array<any>>(
-    getWorkoutTimes(workoutExercises)
+  const [repLengths, setRepLengths] = useState<Array<any>>(
+    getRepLengths(workoutExercises)
+  );
+  const [repitionsList, setRepitionsList] = useState<Array<any>>(
+    getRepitionsList(workoutExercises)
   );
   const [error, setError] = useState("");
   const [showWarningModal, setShowWarningModal] = useState(false);
@@ -56,11 +70,19 @@ export default function EditWorkoutModal({
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setLoading(true);
+
+    const exercises: any = [];
+    workoutExercises.forEach((exercise, index) => {
+      exercise.repLengthInSeconds = repLengths[index] || "";
+      exercise.repetitions = repitionsList[index];
+      exercises.push(exercise);
+    });
     try {
       await updateDoc(doc(database, "workouts", workoutId), {
         name: name,
         description: description,
         category: category,
+        exercises: exercises,
         updatedAt: Timestamp.fromDate(new Date()),
       });
     } catch (error) {
@@ -70,6 +92,17 @@ export default function EditWorkoutModal({
     handleClose();
   }
 
+  function handleFormReset() {
+    setName(workoutName);
+    setDescription(workoutDescription);
+    setCategory(workoutCategory);
+    setRepLengths(getRepLengths(workoutExercises));
+    setRepitionsList(getRepitionsList(workoutExercises));
+  }
+  function handleCloseMainModal() {
+    handleClose();
+    handleFormReset();
+  }
   //Close the main modal and show the warning modal
   function handleShowWarningModal() {
     setShowWarningModal(true);
@@ -93,7 +126,7 @@ export default function EditWorkoutModal({
 
   return (
     <>
-      <Modal show={isVisible} onHide={handleClose}>
+      <Modal show={isVisible} onHide={handleCloseMainModal}>
         <Modal.Header closeButton>
           <Modal.Title>
             <h1>Edit Workout</h1>
@@ -139,16 +172,29 @@ export default function EditWorkoutModal({
               </Form.Select>
             </Form.Group>
             {workoutExercises.map((exercise, index) => (
-              <Form.Group key={exercise.id}>
-                <h4 className="mt-2">{exercise.name}</h4>
+              <Form.Group key={exercise.uuid}>
+                <h5 className="mt-2">{exercise.name}</h5>
                 <Form.Label>Time in seconds</Form.Label>
                 <Form.Control
                   type="number"
                   step={30}
                   placeholder="exercise time in seconds"
-                  value={exerciseTimes[index]}
+                  value={repLengths[index]}
                   onChange={(e) =>
-                    setExerciseTimes((prev) => {
+                    setRepLengths((prev) => {
+                      const result = prev;
+                      result.splice(index, 1, e.target.value);
+                      return [...result];
+                    })
+                  }
+                />
+                <Form.Label>Repetitions</Form.Label>
+                <Form.Control
+                  type="number"
+                  placeholder="repitions"
+                  value={repitionsList[index]}
+                  onChange={(e) =>
+                    setRepitionsList((prev) => {
                       const result = prev;
                       result.splice(index, 1, e.target.value);
                       return [...result];
