@@ -34,7 +34,9 @@ export default function Browse() {
             <Col key={exercise.uuid}>
               <ExerciseCard
                 name={exercise.name}
+                description={exercise.description}
                 imageUrl={exercise.images[0]?.image}
+                uuid={exercise.uuid}
                 Svg={getSvgFromCategory(exercise.category.name)}
               />
             </Col>
