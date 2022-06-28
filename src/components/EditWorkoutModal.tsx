@@ -38,6 +38,7 @@ export default function EditWorkoutModal({
   const [showWarningModal, setShowWarningModal] = useState(false);
 
   async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
     setLoading(true);
     try {
       await updateDoc(doc(database, "workouts", workoutId), {
@@ -50,6 +51,7 @@ export default function EditWorkoutModal({
       setError(error as string);
     }
     setLoading(false);
+    handleClose();
   }
 
   //Close the main modal and show the warning modal
