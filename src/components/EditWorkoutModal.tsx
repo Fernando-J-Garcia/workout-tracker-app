@@ -6,7 +6,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { Button, Form, Modal, Spinner } from "react-bootstrap";
+import { Alert, Button, Form, Modal, Spinner } from "react-bootstrap";
 import { PencilSquare } from "react-bootstrap-icons";
 import { useUser } from "../contexts/UserContext";
 import exerciseCategories from "../data/exerciseCategories.json";
@@ -84,6 +84,7 @@ export default function EditWorkoutModal({
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          {!!error && <Alert>{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group>
               <Form.Label>Name</Form.Label>
@@ -154,6 +155,7 @@ export default function EditWorkoutModal({
           <Modal.Title>Are You sure want to delete this workout?</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          {!!error && <Alert>{error}</Alert>}
           {loading ? (
             <div className="mt-2">
               <Spinner
