@@ -137,11 +137,11 @@ export default function EditWorkoutModal({
                   );
                 })}
               </Form.Select>
-              <h3 className="mt-2">Exercises</h3>
             </Form.Group>
             {workoutExercises.map((exercise, index) => (
               <Form.Group key={exercise.id}>
-                <Form.Label>{exercise.name}</Form.Label>
+                <h4 className="mt-2">{exercise.name}</h4>
+                <Form.Label>Time in seconds</Form.Label>
                 <Form.Control
                   type="number"
                   step={30}
