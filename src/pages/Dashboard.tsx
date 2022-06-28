@@ -36,6 +36,7 @@ export default function Dashboard() {
         description: description,
         category: category,
         userId: currentUser?.uid,
+        exercises: [],
         createdAt: Timestamp.fromDate(new Date()),
         updateAt: Timestamp.fromDate(new Date()),
       });
@@ -69,7 +70,7 @@ export default function Dashboard() {
               onClick={() => setShowModal(true)}
               className="w-100 h-100"
             >
-              +Add Workout
+              +Create Workout
             </Button>
           </Col>
         </Row>
