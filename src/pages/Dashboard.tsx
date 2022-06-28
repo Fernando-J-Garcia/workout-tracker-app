@@ -59,6 +59,7 @@ export default function Dashboard() {
                 id={workout.id}
                 description={workout.description}
                 category={workout.category}
+                exercises={workout.exercises}
               />
             </Col>
           ))}

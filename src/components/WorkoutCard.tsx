@@ -9,6 +9,7 @@ interface WorkoutCardInterface {
   id: string;
   description: string;
   category: string;
+  exercises: any[];
 }
 export default function WorkoutCard({
   Svg,
@@ -16,6 +17,7 @@ export default function WorkoutCard({
   id,
   description,
   category,
+  exercises,
 }: WorkoutCardInterface) {
   const [showStartWorkoutModal, setShowStartWorkoutModal] = useState(false);
   const [showEditWorkoutModal, setShowEditWorkoutModal] = useState(false);
@@ -53,6 +55,7 @@ export default function WorkoutCard({
         workoutId={id}
         workoutCategory={category}
         workoutDescription={description}
+        workoutExercises={exercises}
       />
     </>
   );

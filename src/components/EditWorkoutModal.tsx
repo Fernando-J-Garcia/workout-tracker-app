@@ -20,6 +20,18 @@ interface EditWorkoutModalInterface {
   workoutId: string;
   workoutDescription: string;
   workoutCategory: string;
+  workoutExercises: any[];
+}
+function getWorkoutTimes(workoutExercises: any[]): any[] {
+  const result = [];
+  for (const exercise of workoutExercises) {
+    if (exercise.lengthInSeconds === undefined) {
+      result.push("");
+      continue;
+    }
+    result.push(exercise.lengthInSeconds);
+  }
+  return result;
 }
 export default function EditWorkoutModal({
   isVisible,
@@ -29,11 +41,15 @@ export default function EditWorkoutModal({
   workoutId,
   workoutDescription,
   workoutCategory,
+  workoutExercises,
 }: EditWorkoutModalInterface) {
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState(workoutName);
   const [description, setDescription] = useState(workoutDescription);
   const [category, setCategory] = useState(workoutCategory);
+  const [exerciseTimes, setExerciseTimes] = useState<Array<any>>(
+    getWorkoutTimes(workoutExercises)
+  );
   const [error, setError] = useState("");
   const [showWarningModal, setShowWarningModal] = useState(false);
 
@@ -121,7 +137,26 @@ export default function EditWorkoutModal({
                   );
                 })}
               </Form.Select>
+              <h3 className="mt-2">Exercises</h3>
             </Form.Group>
+            {workoutExercises.map((exercise, index) => (
+              <Form.Group key={exercise.id}>
+                <Form.Label>{exercise.name}</Form.Label>
+                <Form.Control
+                  type="number"
+                  step={30}
+                  placeholder="exercise time in seconds"
+                  value={exerciseTimes[index]}
+                  onChange={(e) =>
+                    setExerciseTimes((prev) => {
+                      const result = prev;
+                      result.splice(index, 1, e.target.value);
+                      return [...result];
+                    })
+                  }
+                />
+              </Form.Group>
+            ))}
             {loading ? (
               <div className="mt-2">
                 <Spinner
