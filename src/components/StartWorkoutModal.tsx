@@ -19,26 +19,26 @@ export default function StartWorkoutModal({
   workoutDescription,
   workoutExercises,
 }: StartWorkoutModalInterface) {
-  const [currentWorkout, setCurrentWorkout] = useState(workoutExercises[0]);
-  const Svg = getSvgFromCategory(currentWorkout.category);
+  const [currrentExercise, setCurrentExercise] = useState(workoutExercises[0]);
+  const Svg = getSvgFromCategory(currrentExercise.category);
   return (
     <Modal show={isVisible} onHide={handleClose} fullscreen>
       <Modal.Header closeButton>
         <Modal.Title>
           <h1>{workoutName}</h1>
-          Get ready for {currentWorkout.name}
+          Get ready for {currrentExercise.name}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Container className="w-50">
-          {currentWorkout.imageUrl ? (
-            <img src={currentWorkout.imageUrl} alt="exercise image" />
+          {currrentExercise.imageUrl ? (
+            <img src={currrentExercise.imageUrl} alt="exercise image" />
           ) : (
             <Svg />
           )}
         </Container>
         <div className="w-100 d-flex justify-content-center">
-          <CountDownTimer />
+          <CountDownTimer currentExercise={currrentExercise} />
         </div>
       </Modal.Body>
     </Modal>
