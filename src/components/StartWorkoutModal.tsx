@@ -69,6 +69,7 @@ export default function StartWorkoutModal({
             currentExercise={currrentExercise}
             startNextExercise={startNextExercise}
             resetTimerFlag={resetTimerFlag}
+            setResetTimerFlagToDefault={() => setResetTimerFlag(false)}
             setAlertMessage={(message) => setAlertMessage(message)}
           />
         </div>
