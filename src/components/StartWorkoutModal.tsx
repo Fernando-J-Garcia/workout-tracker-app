@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Container, Modal } from "react-bootstrap";
+import { Alert, Button, Container, Modal } from "react-bootstrap";
 import { getSvgFromCategory } from "../utilities/utilities";
 import CountDownTimer from "./CountDownTimer";
 
@@ -19,17 +19,44 @@ export default function StartWorkoutModal({
   workoutDescription,
   workoutExercises,
 }: StartWorkoutModalInterface) {
-  const [currrentExercise, setCurrentExercise] = useState(workoutExercises[0]);
+  const [count, setCount] = useState(0);
+  const [resetTimerFlag, setResetTimerFlag] = useState(false);
+  const [currrentExercise, setCurrentExercise] = useState(
+    workoutExercises[count]
+  );
+  const [alertMessage, setAlertMessage] = useState("");
+
   const Svg = getSvgFromCategory(currrentExercise.category);
+
+  function startNextExercise() {
+    setCount((prev) => {
+      const newCount = prev + 1;
+
+      if (newCount >= workoutExercises.length) {
+        setResetTimerFlag(true);
+        return 0;
+      }
+      setCurrentExercise(workoutExercises[newCount]);
+      return newCount;
+    });
+  }
   return (
     <Modal show={isVisible} onHide={handleClose} fullscreen>
       <Modal.Header closeButton>
         <Modal.Title>
-          <h1>{workoutName}</h1>
-          Get ready for {currrentExercise.name}
+          <h1>Get ready for {currrentExercise.name}</h1>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        {!!alertMessage && (
+          <Alert
+            variant="success"
+            dismissible
+            onClose={() => setAlertMessage("")}
+          >
+            {alertMessage}
+          </Alert>
+        )}
         <Container className="w-50">
           {currrentExercise.imageUrl ? (
             <img src={currrentExercise.imageUrl} alt="exercise image" />
@@ -38,7 +65,12 @@ export default function StartWorkoutModal({
           )}
         </Container>
         <div className="w-100 d-flex justify-content-center">
-          <CountDownTimer currentExercise={currrentExercise} />
+          <CountDownTimer
+            currentExercise={currrentExercise}
+            startNextExercise={startNextExercise}
+            resetTimerFlag={resetTimerFlag}
+            setAlertMessage={(message) => setAlertMessage(message)}
+          />
         </div>
       </Modal.Body>
     </Modal>
