@@ -6,6 +6,7 @@ interface CountDownTimerInterface {
   currentExercise: Exercise;
   startNextExercise: () => void;
   resetTimerFlag: boolean;
+  setResetTimerFlagToDefault: () => void;
   setAlertMessage: (message: string) => void;
 }
 interface Time {
@@ -46,6 +47,7 @@ export default function CountDownTimer({
   currentExercise,
   startNextExercise,
   resetTimerFlag,
+  setResetTimerFlagToDefault,
   setAlertMessage,
 }: CountDownTimerInterface) {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -62,6 +64,7 @@ export default function CountDownTimer({
     if (resetTimerFlag) {
       setAlertMessage("Workout finished!");
       setIsPlaying(false);
+      setResetTimerFlagToDefault();
     }
   }, [resetTimerFlag]);
 
