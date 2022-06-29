@@ -66,7 +66,7 @@ export default function ExerciseCard({
         {imageUrl ? (
           <img src={imageUrl} alt="exercise image" height={220} />
         ) : (
-          <Svg />
+          <Svg height={150} />
         )}
         <Card.Body>
           <Card.Title>{name}</Card.Title>
