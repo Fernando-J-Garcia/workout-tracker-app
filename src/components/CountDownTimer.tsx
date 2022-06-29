@@ -4,6 +4,9 @@ import { Exercise } from "../Types/exercise";
 
 interface CountDownTimerInterface {
   currentExercise: Exercise;
+  startNextExercise: () => void;
+  resetTimerFlag: boolean;
+  setAlertMessage: (message: string) => void;
 }
 interface Time {
   seconds: string;
@@ -41,6 +44,9 @@ function FormatTime(timeInSeconds: string): Time {
 
 export default function CountDownTimer({
   currentExercise,
+  startNextExercise,
+  resetTimerFlag,
+  setAlertMessage,
 }: CountDownTimerInterface) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [timeInSeconds, setTimeInSeconds] = useState<number>(
@@ -50,6 +56,14 @@ export default function CountDownTimer({
     FormatTime(currentExercise.repLengthInSeconds)
   );
   const [timer, setTimer] = useState<NodeJS.Timer>();
+
+  //Handle Timer Reset
+  useEffect(() => {
+    if (resetTimerFlag) {
+      setAlertMessage("Workout finished!");
+      setIsPlaying(false);
+    }
+  }, [resetTimerFlag]);
 
   useEffect(() => {
     if (isPlaying) {
@@ -63,6 +77,11 @@ export default function CountDownTimer({
   function countDown() {
     setTimeInSeconds((prev) => {
       const newTimeInSeconds = prev - 1;
+
+      if (newTimeInSeconds === 0) {
+        startNextExercise();
+      }
+
       setTime(FormatTime(newTimeInSeconds.toString()));
       return newTimeInSeconds;
     });
