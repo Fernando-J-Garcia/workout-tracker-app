@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Container, Modal } from "react-bootstrap";
 import { getSvgFromCategory } from "../utilities/utilities";
+import Timer from "./Timer";
 
 interface StartWorkoutModalInterface {
   isVisible: boolean;
@@ -37,13 +38,7 @@ export default function StartWorkoutModal({
           )}
         </Container>
         <div className="w-100 d-flex justify-content-center">
-          <Button
-            className="rounded-circle border border-2 border-primary"
-            variant="outline-primary"
-            style={{ width: "200px", height: "200px" }}
-          >
-            <h1>Start</h1>
-          </Button>
+          <Timer />
         </div>
       </Modal.Body>
     </Modal>
