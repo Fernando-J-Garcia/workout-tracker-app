@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Card, Modal } from "react-bootstrap";
 import { ThreeDots } from "react-bootstrap-icons";
 import EditWorkoutModal from "./EditWorkoutModal";
+import StartWorkoutModal from "./StartWorkoutModal";
 
 interface WorkoutCardInterface {
   Svg: ({ width, height }: { width?: any; height?: any }) => JSX.Element;
@@ -22,7 +23,7 @@ export default function WorkoutCard({
   const [showStartWorkoutModal, setShowStartWorkoutModal] = useState(false);
   const [showEditWorkoutModal, setShowEditWorkoutModal] = useState(false);
 
-  function handleClose() {
+  function handleStartWorkoutModalClose() {
     setShowStartWorkoutModal(false);
   }
   function handleEditWorkoutModalClose() {
@@ -46,7 +47,14 @@ export default function WorkoutCard({
           </Button>
         </Card.Body>
       </Card>
-      <Modal show={showStartWorkoutModal} onHide={handleClose}></Modal>
+      <StartWorkoutModal
+        isVisible={showStartWorkoutModal}
+        handleClose={handleStartWorkoutModalClose}
+        workoutName={name}
+        workoutCategory={category}
+        workoutDescription={description}
+        workoutExercises={exercises}
+      />
       <EditWorkoutModal
         isVisible={showEditWorkoutModal}
         handleOpen={() => setShowEditWorkoutModal(true)}
