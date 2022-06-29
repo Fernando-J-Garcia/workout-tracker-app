@@ -34,7 +34,7 @@ export default function StartWorkoutModal({
 
       if (newCount >= workoutExercises.length) {
         setResetTimerFlag(true);
-        setCurrentExercise(0);
+        setCurrentExercise(workoutExercises[0]);
         return 0;
       }
       setCurrentExercise(workoutExercises[newCount]);
