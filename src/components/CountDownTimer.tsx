@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 
-export default function Timer() {
+export default function CountDownTimer() {
   const [isTimerPaused, setIsTimerPaused] = useState(true);
   function startTimer() {
     setIsTimerPaused(false);

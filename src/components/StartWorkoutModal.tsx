@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Container, Modal } from "react-bootstrap";
 import { getSvgFromCategory } from "../utilities/utilities";
-import Timer from "./Timer";
+import CountDownTimer from "./CountDownTimer";
 
 interface StartWorkoutModalInterface {
   isVisible: boolean;
@@ -38,7 +38,7 @@ export default function StartWorkoutModal({
           )}
         </Container>
         <div className="w-100 d-flex justify-content-center">
-          <Timer />
+          <CountDownTimer />
         </div>
       </Modal.Body>
     </Modal>
