@@ -1,16 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Col, Row, Spinner } from "react-bootstrap";
+import { Button, Card, Col, Pagination, Row, Spinner } from "react-bootstrap";
 import ExerciseCard from "../components/ExerciseCard";
 import { getSvgFromCategory } from "../utilities/utilities";
 
 export default function Browse() {
   const [exercises, setExercises] = useState(null);
+  const [paginationPage, setPaginationPage] = useState(0);
+  const [paginationCount, setPaginationCount] = useState(0);
+  const [paginationItems, setPaginationItems] = useState<JSX.Element[]>([]);
 
   useEffect(() => {
     fetch("https://wger.de/api/v2/exercise/?language=2")
       .then((res) => res.json())
       .then((data) => {
         setExercises(data);
+
+        const paginationCount = Math.ceil(data.count / data.results.length);
+        setPaginationCount(paginationCount);
+
+        const paginationItems = [];
+        for (let i = 0; i < paginationCount; i++) {
+          const item = (
+            <Pagination.Item key={i} active={i === paginationPage}>
+              {i + 1}
+            </Pagination.Item>
+          );
+          paginationItems.push(item);
+        }
+        setPaginationItems(paginationItems);
         console.log(data);
       });
   }, []);
@@ -45,6 +62,7 @@ export default function Browse() {
           ))}
         </Row>
       )}
+      <Pagination className="mt-2">{paginationItems}</Pagination>
     </div>
   );
 }
