@@ -1,40 +1,54 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Col, Pagination, Row, Spinner } from "react-bootstrap";
+import { Button, Card, Col, Form, Row, Spinner } from "react-bootstrap";
 import ExerciseCard from "../components/ExerciseCard";
+import PaginationComponent from "../components/Pagination";
 import { getSvgFromCategory } from "../utilities/utilities";
 
 export default function Browse() {
   const [exercises, setExercises] = useState(null);
-  const [paginationPage, setPaginationPage] = useState(0);
-  const [paginationCount, setPaginationCount] = useState(0);
-  const [paginationItems, setPaginationItems] = useState<JSX.Element[]>([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const POST_PER_PAGE = 20;
 
   useEffect(() => {
-    fetch("https://wger.de/api/v2/exercise/?language=2")
+    setLoading(true);
+    const offset = currentPage * POST_PER_PAGE;
+    fetch(
+      `https://wger.de/api/v2/exercise/?language=2&limit=${POST_PER_PAGE}&offset=${offset}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setExercises(data);
-
-        const paginationCount = Math.ceil(data.count / data.results.length);
-        setPaginationCount(paginationCount);
-
-        const paginationItems = [];
-        for (let i = 0; i < paginationCount; i++) {
-          const item = (
-            <Pagination.Item key={i} active={i === paginationPage}>
-              {i + 1}
-            </Pagination.Item>
-          );
-          paginationItems.push(item);
-        }
-        setPaginationItems(paginationItems);
         console.log(data);
+        setLoading(false);
       });
   }, []);
+
+  function paginate(pageNumber: number) {
+    setCurrentPage(pageNumber);
+    setLoading(true);
+    const offset = pageNumber * POST_PER_PAGE;
+
+    const nextPageUrl = `https://wger.de/api/v2/exercise/?language=2&limit=${POST_PER_PAGE}&offset=${offset}`;
+    fetch(nextPageUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        setExercises(data);
+        setLoading(false);
+        console.log(data);
+      });
+  }
   return (
     <div>
-      <h1>Browse</h1>
-      {exercises === null ? (
+      <div className="d-flex flex-row justify-content-between align-items-center">
+        <h1>Browse</h1>
+        <Form.Control
+          type="text"
+          placeholder="Search..."
+          className="w-50 h-50"
+        />
+      </div>
+      {loading ? (
         <>
           <Spinner
             as="span"
@@ -46,23 +60,32 @@ export default function Browse() {
           <span className="ms-2">Loading...</span>
         </>
       ) : (
-        <Row md={3} xs={2} lg={4} className="g-3">
-          {exercises?.results?.map((exercise, index) => (
-            <Col key={exercise.uuid}>
-              <ExerciseCard
-                name={exercise.name}
-                description={exercise.description}
-                imageUrl={(exercise.images && exercise.images[0]?.image) || ""}
-                uuid={exercise.uuid}
-                Svg={getSvgFromCategory(
-                  exercise.category.name || exercise.category
-                )}
-              />
-            </Col>
-          ))}
-        </Row>
+        <>
+          <Row md={3} xs={2} lg={4} className="g-3">
+            {exercises?.results?.map((exercise, index) => (
+              <Col key={exercise.uuid}>
+                <ExerciseCard
+                  name={exercise.name}
+                  description={exercise.description}
+                  imageUrl={
+                    (exercise.images && exercise.images[0]?.image) || ""
+                  }
+                  uuid={exercise.uuid}
+                  Svg={getSvgFromCategory(
+                    exercise.category.name || exercise.category
+                  )}
+                />
+              </Col>
+            ))}
+          </Row>
+          <PaginationComponent
+            postsPerPage={exercises?.results.length}
+            totalPosts={exercises?.count}
+            currentPage={currentPage}
+            paginate={paginate}
+          />
+        </>
       )}
-      <Pagination className="mt-2">{paginationItems}</Pagination>
     </div>
   );
 }
