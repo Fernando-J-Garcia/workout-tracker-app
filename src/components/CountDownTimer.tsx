@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { Exercise } from "../Types/exercise";
+import { Exercise } from "../Types/Exercise";
 
 interface CountDownTimerInterface {
   currentExercise: Exercise;
