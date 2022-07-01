@@ -68,6 +68,8 @@ export default function CountDownTimer({
   const [playingAudio, toggleAudio] = useAudio(
     "https://cdn.freesound.org/previews/153/153213_2499466-lq.mp3"
   );
+  const [currentSet, setCurrentSet] = useState(0);
+
   //Handle Exercise Change
   useEffect(() => {
     setTimeInSeconds(parseInt(currentExercise.repLengthInSeconds));
@@ -95,6 +97,7 @@ export default function CountDownTimer({
     return () => clearInterval(timer);
   }, [isPlaying]);
 
+  //timer reached zero...
   useEffect(() => {
     if (timeInSeconds === 0) {
       if (!isBreakTime) {
@@ -105,13 +108,30 @@ export default function CountDownTimer({
 
       if (isBreakTime) {
         console.log("break time over");
-        startNextExercise();
         setIsBreakTime(false);
+        setCurrentSet((prev) => prev + 1);
       }
       if (!playingAudio) toggleAudio();
     }
     setFormattedTime(FormatTime(timeInSeconds.toString()));
   }, [timeInSeconds]);
+
+  useEffect(() => {
+    if (currentSet === 0) return;
+    console.log(currentSet + " " + parseInt(currentExercise.repetitions));
+    //if we have completeted all the sets for this exercise...
+    //start the next exercise
+    if (currentSet === parseInt(currentExercise.repetitions)) {
+      startNextExercise();
+      setCurrentSet(0);
+    }
+    //otherwise...
+    //start another set!
+    else {
+      setTimeInSeconds(parseInt(currentExercise.repLengthInSeconds));
+      setFormattedTime(FormatTime(currentExercise.repLengthInSeconds));
+    }
+  }, [currentSet]);
 
   function countDown() {
     setTimeInSeconds((prev) => prev - 1);
