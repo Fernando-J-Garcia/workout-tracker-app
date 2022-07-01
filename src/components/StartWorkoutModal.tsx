@@ -21,6 +21,7 @@ export default function StartWorkoutModal({
 }: StartWorkoutModalInterface) {
   const [count, setCount] = useState(0);
   const [resetTimerFlag, setResetTimerFlag] = useState(false);
+  const [isBreakTime, setIsBreakTime] = useState(false);
   const [currrentExercise, setCurrentExercise] = useState(
     workoutExercises[count]
   );
@@ -45,7 +46,11 @@ export default function StartWorkoutModal({
     <Modal show={isVisible} onHide={handleClose} fullscreen>
       <Modal.Header closeButton>
         <Modal.Title>
-          <h1>Get ready for {currrentExercise.name}</h1>
+          {isBreakTime ? (
+            <h1>Break time</h1>
+          ) : (
+            <h1>Get ready for {currrentExercise.name}</h1>
+          )}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -70,6 +75,8 @@ export default function StartWorkoutModal({
             currentExercise={currrentExercise}
             startNextExercise={startNextExercise}
             resetTimerFlag={resetTimerFlag}
+            isBreakTime={isBreakTime}
+            setIsBreakTime={(value) => setIsBreakTime(value)}
             setResetTimerFlagToDefault={() => setResetTimerFlag(false)}
             setAlertMessage={(message) => setAlertMessage(message)}
           />
