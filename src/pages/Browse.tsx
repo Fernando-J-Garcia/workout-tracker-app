@@ -1,18 +1,5 @@
-import React, {
-  KeyboardEventHandler,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import {
-  Button,
-  Card,
-  Col,
-  Form,
-  FormControlProps,
-  Row,
-  Spinner,
-} from "react-bootstrap";
+import React, { useEffect, useRef, useState } from "react";
+import { Col, Form, Row, Spinner } from "react-bootstrap";
 import ExerciseCard from "../components/ExerciseCard";
 import PaginationComponent from "../components/Pagination";
 import { getSvgFromCategory } from "../utilities/utilities";
@@ -25,6 +12,7 @@ export default function Browse() {
   const [loading, setLoading] = useState(true);
   const POST_PER_PAGE = 20;
 
+  //API CALLS --------------------------
   useEffect(() => {
     setLoading(true);
     const offset = currentPage * POST_PER_PAGE;
@@ -78,6 +66,8 @@ export default function Browse() {
       });
     setLoading(false);
   }
+  //END API CALLS --------------------------
+
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     console.log(e.key);
     if (e.key === "Enter") {
