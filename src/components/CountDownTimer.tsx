@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import useAudio from "../Hooks/useAudio";
 import { Exercise } from "../Types/Exercise";
 
 interface CountDownTimerInterface {
   currentExercise: Exercise;
   startNextExercise: () => void;
   resetTimerFlag: boolean;
+  isBreakTime: boolean;
+  setIsBreakTime: (value: boolean) => void;
   setResetTimerFlagToDefault: () => void;
   setAlertMessage: (message: string) => void;
 }
@@ -47,27 +50,42 @@ export default function CountDownTimer({
   currentExercise,
   startNextExercise,
   resetTimerFlag,
+  isBreakTime,
   setResetTimerFlagToDefault,
   setAlertMessage,
+  setIsBreakTime,
 }: CountDownTimerInterface) {
   const [isPlaying, setIsPlaying] = useState(false);
+  const BREAK_TIME_SECONDS = 60;
   const [timeInSeconds, setTimeInSeconds] = useState<number>(
     parseInt(currentExercise.repLengthInSeconds)
   );
-  const [time, setTime] = useState<Time>(
+  const [formattedTime, setFormattedTime] = useState<Time>(
     FormatTime(currentExercise.repLengthInSeconds)
   );
   const [timer, setTimer] = useState<NodeJS.Timer>();
+
+  const [playingAudio, toggleAudio] = useAudio(
+    "https://cdn.freesound.org/previews/153/153213_2499466-lq.mp3"
+  );
+  //Handle Exercise Change
+  useEffect(() => {
+    setTimeInSeconds(parseInt(currentExercise.repLengthInSeconds));
+    setFormattedTime(FormatTime(currentExercise.repLengthInSeconds));
+  }, [currentExercise]);
 
   //Handle Timer Reset
   useEffect(() => {
     if (resetTimerFlag) {
       setAlertMessage("Workout finished!");
       setIsPlaying(false);
+      setTimeInSeconds(parseInt(currentExercise.repLengthInSeconds));
+      setFormattedTime(FormatTime(currentExercise.repLengthInSeconds));
       setResetTimerFlagToDefault();
     }
   }, [resetTimerFlag]);
 
+  //Timer interval
   useEffect(() => {
     if (isPlaying) {
       setTimer(setInterval(countDown, 1000));
@@ -77,17 +95,26 @@ export default function CountDownTimer({
     return () => clearInterval(timer);
   }, [isPlaying]);
 
-  function countDown() {
-    setTimeInSeconds((prev) => {
-      const newTimeInSeconds = prev - 1;
-
-      if (newTimeInSeconds === 0) {
-        startNextExercise();
+  useEffect(() => {
+    if (timeInSeconds === 0) {
+      if (!isBreakTime) {
+        setTimeInSeconds(BREAK_TIME_SECONDS);
+        setIsBreakTime(true);
+        console.log("break time!");
       }
 
-      setTime(FormatTime(newTimeInSeconds.toString()));
-      return newTimeInSeconds;
-    });
+      if (isBreakTime) {
+        console.log("break time over");
+        startNextExercise();
+        setIsBreakTime(false);
+      }
+      if (!playingAudio) toggleAudio();
+    }
+    setFormattedTime(FormatTime(timeInSeconds.toString()));
+  }, [timeInSeconds]);
+
+  function countDown() {
+    setTimeInSeconds((prev) => prev - 1);
   }
   function startTimer() {
     setIsPlaying(true);
@@ -114,7 +141,7 @@ export default function CountDownTimer({
         style={{ width: "200px", height: "200px" }}
         onClick={stopTimer}
       >
-        <h1>{`${time.minutes}:${time.seconds}`}</h1>
+        <h1>{`${formattedTime.minutes}:${formattedTime.seconds}`}</h1>
       </Button>
     );
 }
