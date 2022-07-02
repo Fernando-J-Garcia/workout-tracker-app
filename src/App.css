@@ -9,4 +9,7 @@
   .start-workout-modal-image > img {
     width: 100%;
   }
+  .dashboard-workout-card {
+    gap: 0.5rem !important;
+  }
 }

@@ -35,33 +35,34 @@ export default function WorkoutCard({
         {<Svg />}
         <Card.Body>
           <Card.Title>{name}</Card.Title>
-          {exercises.length === 0 ? (
-            <OverlayTrigger
-              overlay={
-                <Tooltip id="tooltip-disabled">
-                  workout contains no exercises! Go add one from the browse
-                  menu.
-                </Tooltip>
-              }
+          <div className="d-flex flex-row gap-3 w-100 dashboard-workout-card">
+            {exercises.length === 0 ? (
+              <OverlayTrigger
+                overlay={
+                  <Tooltip id="tooltip-disabled">
+                    workout contains no exercises! Go add one from the browse
+                    menu.
+                  </Tooltip>
+                }
+              >
+                <span className="d-inline-block">
+                  <Button disabled style={{ pointerEvents: "none" }}>
+                    Start Workout
+                  </Button>
+                </span>
+              </OverlayTrigger>
+            ) : (
+              <Button onClick={() => setShowStartWorkoutModal(true)}>
+                Start Workout!
+              </Button>
+            )}
+            <Button
+              variant="outline-primary"
+              onClick={() => setShowEditWorkoutModal(true)}
             >
-              <span className="d-inline-block">
-                <Button disabled style={{ pointerEvents: "none" }}>
-                  Start Workout
-                </Button>
-              </span>
-            </OverlayTrigger>
-          ) : (
-            <Button onClick={() => setShowStartWorkoutModal(true)}>
-              Start Workout!
+              <ThreeDots />
             </Button>
-          )}
-          <Button
-            variant="outline-primary"
-            className="ms-3"
-            onClick={() => setShowEditWorkoutModal(true)}
-          >
-            <ThreeDots />
-          </Button>
+          </div>
         </Card.Body>
       </Card>
       <StartWorkoutModal
