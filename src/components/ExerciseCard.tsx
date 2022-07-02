@@ -71,7 +71,7 @@ export default function ExerciseCard({
         )}
         <Card.Body>
           <Card.Title>{name}</Card.Title>
-          <Button onClick={() => setShowModal(true)}>Add Workout</Button>
+          <Button onClick={() => setShowModal(true)}>Add Exercise</Button>
         </Card.Body>
       </Card>
       <Modal show={showModal} onHide={handleClose}>
