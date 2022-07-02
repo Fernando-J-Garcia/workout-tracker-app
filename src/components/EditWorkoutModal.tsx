@@ -5,10 +5,8 @@ import {
   Timestamp,
   updateDoc,
 } from "firebase/firestore";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useState } from "react";
 import { Alert, Button, Form, Modal, Spinner } from "react-bootstrap";
-import { PencilSquare } from "react-bootstrap-icons";
-import { useUser } from "../contexts/UserContext";
 import exerciseCategories from "../data/exerciseCategories.json";
 import { database } from "../firebase";
 
