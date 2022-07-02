@@ -1,0 +1,12 @@
+@media (max-width: 1200px) {
+  .start-workout-modal-image > svg,
+  .start-workout-modal-image > img {
+    width: 60%;
+  }
+}
+@media (max-width: 400px) {
+  .start-workout-modal-image > svg,
+  .start-workout-modal-image > img {
+    width: 100%;
+  }
+}

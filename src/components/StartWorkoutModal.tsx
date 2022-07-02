@@ -68,11 +68,11 @@ export default function StartWorkoutModal({
             {alertMessage}
           </Alert>
         )}
-        <Container className="w-50">
+        <Container className="w-100 d-flex justify-content-center start-workout-modal-image">
           {currrentExercise.imageUrl ? (
             <img src={currrentExercise.imageUrl} alt="exercise image" />
           ) : (
-            <Svg />
+            <Svg width="45%" />
           )}
         </Container>
         <div className="w-100 d-flex justify-content-center">
