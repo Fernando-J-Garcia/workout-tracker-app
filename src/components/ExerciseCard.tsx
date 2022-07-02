@@ -79,6 +79,7 @@ export default function ExerciseCard({
           <Modal.Title>Select Where To Add Workout</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          {!!error && <Alert>{error}</Alert>}
           {loading ? (
             <div className="mt-2">
               <Spinner
@@ -92,7 +93,6 @@ export default function ExerciseCard({
             </div>
           ) : (
             <>
-              {!!error && <Alert>{error}</Alert>}
               {userWorkouts?.map((workout) => (
                 <div key={workout.id}>
                   {workoutContainsExercise(workout) ? (
