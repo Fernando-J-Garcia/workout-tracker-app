@@ -115,6 +115,7 @@ export default function Browse() {
               <Col key={exercise.uuid || exercise.id}>
                 <ExerciseCard
                   name={exercise.name}
+                  category={exercise.category}
                   description={exercise.description}
                   imageUrl={
                     (exercise.images && exercise.images[0]?.image) || ""
