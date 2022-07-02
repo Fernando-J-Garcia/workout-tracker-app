@@ -48,9 +48,13 @@ export default function StartWorkoutModal({
       <Modal.Header closeButton>
         <Modal.Title>
           {isBreakTime ? (
-            <h1>Break time</h1>
+            <h1>
+              Break time
+              {count + 1 != workoutExercises.length &&
+                ` - Up Next ${workoutExercises[count + 1].name}`}
+            </h1>
           ) : (
-            <h1>Get ready for {currrentExercise.name}</h1>
+            <h1>{currrentExercise.name}</h1>
           )}
         </Modal.Title>
       </Modal.Header>
