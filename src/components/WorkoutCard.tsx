@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Card, Modal } from "react-bootstrap";
+import { Button, Card, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { ThreeDots } from "react-bootstrap-icons";
 import EditWorkoutModal from "./EditWorkoutModal";
 import StartWorkoutModal from "./StartWorkoutModal";
@@ -35,9 +35,26 @@ export default function WorkoutCard({
         {<Svg />}
         <Card.Body>
           <Card.Title>{name}</Card.Title>
-          <Button onClick={() => setShowStartWorkoutModal(true)}>
-            Start Workout!
-          </Button>
+          {exercises.length === 0 ? (
+            <OverlayTrigger
+              overlay={
+                <Tooltip id="tooltip-disabled">
+                  workout contains no exercises! Go add one from the browse
+                  menu.
+                </Tooltip>
+              }
+            >
+              <span className="d-inline-block">
+                <Button disabled style={{ pointerEvents: "none" }}>
+                  Start Workout
+                </Button>
+              </span>
+            </OverlayTrigger>
+          ) : (
+            <Button onClick={() => setShowStartWorkoutModal(true)}>
+              Start Workout!
+            </Button>
+          )}
           <Button
             variant="outline-primary"
             className="ms-3"
