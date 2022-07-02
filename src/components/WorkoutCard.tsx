@@ -35,7 +35,7 @@ export default function WorkoutCard({
         {<Svg />}
         <Card.Body>
           <Card.Title>{name}</Card.Title>
-          <div className="d-flex flex-row gap-3 w-100 dashboard-workout-card">
+          <div className="d-flex flex-row w-100 dashboard-workout-card">
             {exercises.length === 0 ? (
               <OverlayTrigger
                 overlay={

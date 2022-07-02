@@ -1,3 +1,8 @@
+@media (min-width: 700px) {
+  .dashboard-workout-card {
+    gap: 1rem !important;
+  }
+}
 @media (max-width: 1200px) {
   .start-workout-modal-image > svg,
   .start-workout-modal-image > img {
