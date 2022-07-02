@@ -2,9 +2,9 @@ import React from "react";
 import { Button, Card } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 
-export default function Home() {
+export default function Profile() {
   const { currentUser, logout } = useAuth();
-  function handleLogOut(e: React.MouseEventHandler<HTMLButtonElement>) {
+  function handleLogOut(e: React.MouseEvent<HTMLButtonElement>) {
     logout()
       .then((res) => {
         //
