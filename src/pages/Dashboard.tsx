@@ -51,7 +51,7 @@ export default function Dashboard() {
     <>
       <div>
         <h1>Dashboard</h1>
-        <Row md={3} xs={2} lg={4} className="g-3">
+        <Row md={3} xs={2} lg={5} className="g-3">
           {userWorkouts?.map((workout, index) => (
             <Col key={workout.id}>
               <WorkoutCard
