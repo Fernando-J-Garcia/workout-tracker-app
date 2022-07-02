@@ -19,7 +19,7 @@ export default function Login() {
       .then((userCredential) => {
         console.log(userCredential);
         setError("");
-        navigate("/");
+        navigate("/dashboard");
       })
       .catch((error) => {
         console.log(error.message);

@@ -7,8 +7,8 @@ export default function Navbar() {
     <NavbarBs>
       <Container>
         <Nav>
-          <Nav.Link to="/" as={NavLink}>
-            Home
+          <Nav.Link to="/profile" as={NavLink}>
+            Profile
           </Nav.Link>
           <Nav.Link to="/dashboard" as={NavLink}>
             Dashboard

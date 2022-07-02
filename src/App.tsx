@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, NavLink, Navigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 import Dashboard from "./pages/Dashboard";
 import Progress from "./pages/Progress";
 import Browse from "./pages/Browse";
@@ -26,7 +26,15 @@ function App() {
               path="/"
               element={
                 <PrivateRoute>
-                  <Home />
+                  <Navigate to="/dashboard" />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <PrivateRoute>
+                  <Profile />
                 </PrivateRoute>
               }
             />

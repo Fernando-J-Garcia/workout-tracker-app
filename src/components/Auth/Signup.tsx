@@ -28,7 +28,7 @@ export default function Signup() {
       .then((userCredential) => {
         console.log("Successfully signed up");
         setError("");
-        navigate("/");
+        navigate("/dashboard");
       })
       .catch((error) => {
         console.log(error.message);
