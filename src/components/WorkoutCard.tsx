@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Button, Card, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Container,
+  Modal,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import { ThreeDots } from "react-bootstrap-icons";
 import EditWorkoutModal from "./EditWorkoutModal";
 import StartWorkoutModal from "./StartWorkoutModal";
@@ -31,9 +38,9 @@ export default function WorkoutCard({
   }
   return (
     <>
-      <Card className="center">
-        {<Svg />}
-        <Card.Body>
+      <Card className="center h-100">
+        <Container className="flex-fill">{<Svg />}</Container>
+        <Card.Body className="flex-grow-0">
           <Card.Title>{name}</Card.Title>
           <div className="d-flex flex-row w-100 dashboard-workout-card">
             {exercises.length === 0 ? (
