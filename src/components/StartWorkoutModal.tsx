@@ -19,7 +19,7 @@ export default function StartWorkoutModal({
   workoutDescription,
   workoutExercises,
 }: StartWorkoutModalInterface) {
-  if (workoutExercises.length === 0) return;
+  if (workoutExercises.length === 0) return null;
   const [count, setCount] = useState(0);
   const [resetTimerFlag, setResetTimerFlag] = useState(false);
   const [isBreakTime, setIsBreakTime] = useState(false);
