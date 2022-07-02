@@ -28,5 +28,7 @@ export default function PaginationComponent({
     );
     paginationItems.push(item);
   }
-  return <Pagination className="mt-2">{paginationItems}</Pagination>;
+  return (
+    <Pagination className="mt-2 overflow-hidden">{paginationItems}</Pagination>
+  );
 }
