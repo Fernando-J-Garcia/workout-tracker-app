@@ -5,7 +5,7 @@ import { useAuth } from "../contexts/AuthContext";
 export default function Profile() {
   const { currentUser, logout } = useAuth();
   function handleLogOut(e: React.MouseEvent<HTMLButtonElement>) {
-    logout()
+    logout?.()
       .then((res) => {
         //
       })

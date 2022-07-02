@@ -15,7 +15,7 @@ export default function Login() {
   async function handleSubmit(e: FormEvent) {
     setLoading(true);
     e.preventDefault();
-    await login(email, password)
+    await login?.(email, password)
       .then((userCredential) => {
         console.log(userCredential);
         setError("");

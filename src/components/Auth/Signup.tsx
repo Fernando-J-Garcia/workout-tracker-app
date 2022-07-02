@@ -24,7 +24,7 @@ export default function Signup() {
       return;
     }
 
-    await signUp(email, password)
+    await signUp?.(email, password)
       .then((userCredential) => {
         console.log("Successfully signed up");
         setError("");
