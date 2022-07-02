@@ -39,14 +39,6 @@ export function UserProvider({ children }: any) {
     });
     return () => unsubscribe();
   }, []);
-  function editWorkout(
-    name: string,
-    description: string,
-    category: string,
-    id: string
-  ) {
-    //Not implemented
-  }
   const value: UserContextInterface = {
     userWorkouts: userWorkouts,
   };
