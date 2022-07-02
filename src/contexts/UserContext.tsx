@@ -39,7 +39,7 @@ export function UserProvider({ children }: any) {
       setUserWorkouts(result);
     });
     return () => unsubscribe();
-  }, []);
+  }, [currentUser]);
   const value: UserContextInterface = {
     userWorkouts: userWorkouts,
   };
