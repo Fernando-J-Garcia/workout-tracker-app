@@ -24,6 +24,7 @@ export function UserProvider({ children }: any) {
   const [userWorkouts, setUserWorkouts] = useState<Array<any>>([]);
 
   useEffect(() => {
+    if (currentUser === null) return;
     const workoutsRef = collection(database, "workouts");
     const q = query(workoutsRef, where("userId", "==", currentUser?.uid));
     const unsubscribe = onSnapshot(q, (snapShot) => {
