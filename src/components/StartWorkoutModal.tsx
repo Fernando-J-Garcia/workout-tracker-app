@@ -26,6 +26,7 @@ export default function StartWorkoutModal({
   const [currrentExercise, setCurrentExercise] = useState(
     workoutExercises[count]
   );
+  const [currentSet, setCurrentSet] = useState(0);
   const [alertMessage, setAlertMessage] = useState("");
 
   const Svg = getSvgFromCategory(currrentExercise.category);
@@ -43,18 +44,23 @@ export default function StartWorkoutModal({
       return newCount;
     });
   }
+  const isStartingNewExercise =
+    count + 1 !== workoutExercises.length &&
+    currentSet + 1 === parseInt(currrentExercise.repetitions);
   return (
     <Modal show={isVisible} onHide={handleClose} fullscreen>
       <Modal.Header closeButton>
         <Modal.Title>
           {isBreakTime ? (
             <h1>
-              Break time
-              {count + 1 != workoutExercises.length &&
-                ` - Up Next ${workoutExercises[count + 1].name}`}
+              Break time!
+              {isStartingNewExercise &&
+                ` Up Next - ${workoutExercises[count + 1].name}`}
             </h1>
           ) : (
-            <h1>{currrentExercise.name}</h1>
+            <h1>{`${currrentExercise.name} [${currentSet + 1}/${parseInt(
+              currrentExercise.repetitions
+            )}]`}</h1>
           )}
         </Modal.Title>
       </Modal.Header>
@@ -84,6 +90,7 @@ export default function StartWorkoutModal({
             setIsBreakTime={(value) => setIsBreakTime(value)}
             setResetTimerFlagToDefault={() => setResetTimerFlag(false)}
             setAlertMessage={(message) => setAlertMessage(message)}
+            updateCurrentSet={(value) => setCurrentSet(value)}
           />
         </div>
       </Modal.Body>

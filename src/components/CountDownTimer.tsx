@@ -11,6 +11,7 @@ interface CountDownTimerInterface {
   setIsBreakTime: (value: boolean) => void;
   setResetTimerFlagToDefault: () => void;
   setAlertMessage: (message: string) => void;
+  updateCurrentSet: (value: number) => void;
 }
 interface Time {
   seconds: string;
@@ -54,6 +55,7 @@ export default function CountDownTimer({
   setResetTimerFlagToDefault,
   setAlertMessage,
   setIsBreakTime,
+  updateCurrentSet,
 }: CountDownTimerInterface) {
   const [isPlaying, setIsPlaying] = useState(false);
   const BREAK_TIME_SECONDS = 60;
@@ -117,6 +119,8 @@ export default function CountDownTimer({
   }, [timeInSeconds]);
 
   useEffect(() => {
+    //Update state of parent
+    updateCurrentSet(currentSet);
     if (currentSet === 0) return;
     console.log(currentSet + " " + parseInt(currentExercise.repetitions));
     //if we have completeted all the sets for this exercise...
