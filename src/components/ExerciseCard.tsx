@@ -6,6 +6,7 @@ import { database } from "../firebase";
 
 interface ExerciseCardInterface {
   name: string;
+  category: string;
   description: string;
   uuid: string;
   Svg: ({ width, height }: { width?: any; height?: any }) => JSX.Element;
