@@ -29,7 +29,7 @@ function getRepLengths(workoutExercises: any[]): any[] {
       result.push("");
       continue;
     }
-    result.push(exercise.lengthInSeconds);
+    result.push(exercise.repLengthInSeconds);
   }
   return result;
 }
