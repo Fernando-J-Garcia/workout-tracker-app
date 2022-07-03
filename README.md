@@ -1,5 +1,5 @@
 # Workout Buddy App
-Create your own fully customized workout, with custom time between each set. No more 5 minute breaks!
+Create your own fully customized workout, with custom time between each set.
 ## Login/ Sign Up
 ![Workout-Buddy-Login](https://user-images.githubusercontent.com/105046544/177020428-709b40c3-5f28-4608-af3b-0ddc07533638.gif)
 ## Create custom workouts
