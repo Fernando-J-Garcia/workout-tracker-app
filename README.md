@@ -1,5 +1,5 @@
 # Workout Buddy App
-Create your own fully customized workouts, with custom time between each set.
+Create your own fully customized workouts with over 300 exercies to choose from. Customizable number of repetitions, and time limits for each set.
 ## Login/ Sign Up
 ![Workout-Buddy-Login](https://user-images.githubusercontent.com/105046544/177020428-709b40c3-5f28-4608-af3b-0ddc07533638.gif)
 ## Create custom workouts
